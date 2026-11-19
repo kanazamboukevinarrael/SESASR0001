@@ -1,0 +1,13 @@
+ekf_node:
+  ros__parameters:
+    use_sim_time: false            # real robot: wall clock
+    ekf_frequency: 20.0
+    # EDIT: robot pose [x, y, yaw] in the LANDMARK MAP frame when you start the node
+    initial_pose: [0.0, -1.5, 1.5708]
+    initial_std: [0.2, 0.2, 0.2]
+    std_lin_vel: 0.1               # [m/s]   process noise on v
+    std_ang_vel: 0.1               # [rad/s] process noise on omega
+    std_range: 0.05                # [m]     AprilTag detections: noisier than the simulator
+    std_bearing: 0.05              # [rad]   about 3 deg
+    landmarks_file: ''             # '' = turtlebot3_perception/config/landmarks.yaml
+    frame_id: map

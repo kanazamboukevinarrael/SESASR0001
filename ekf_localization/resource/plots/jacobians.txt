@@ -1,0 +1,18 @@
+MOTION MODEL  g(u, x), state [x, y, theta], command [v, omega]
+\left[\begin{matrix}x - \frac{v \sin{\left(\theta \right)}}{\omega} + \frac{v \sin{\left(dt \omega + \theta \right)}}{\omega}\\y + \frac{v \cos{\left(\theta \right)}}{\omega} - \frac{v \cos{\left(dt \omega + \theta \right)}}{\omega}\\dt \omega + \theta\end{matrix}\right]
+
+G = dg/dx
+\left[\begin{matrix}1 & 0 & \frac{v \left(- \cos{\left(\theta \right)} + \cos{\left(dt \omega + \theta \right)}\right)}{\omega}\\0 & 1 & \frac{v \left(- \sin{\left(\theta \right)} + \sin{\left(dt \omega + \theta \right)}\right)}{\omega}\\0 & 0 & 1\end{matrix}\right]
+
+V = dg/du
+\left[\begin{matrix}\frac{- \sin{\left(\theta \right)} + \sin{\left(dt \omega + \theta \right)}}{\omega} & \frac{v \left(dt \omega \cos{\left(dt \omega + \theta \right)} + \sin{\left(\theta \right)} - \sin{\left(dt \omega + \theta \right)}\right)}{\omega^{2}}\\\frac{\cos{\left(\theta \right)} - \cos{\left(dt \omega + \theta \right)}}{\omega} & \frac{v \left(dt \omega \sin{\left(dt \omega + \theta \right)} - \cos{\left(\theta \right)} + \cos{\left(dt \omega + \theta \right)}\right)}{\omega^{2}}\\0 & dt\end{matrix}\right]
+
+Linearization:  g(u, x) ~ g(u, mu) + G (x - mu)   (also w.r.t. u with V)
+
+LANDMARK MODEL  h(x, m)
+\left[\begin{matrix}\sqrt{\left(m_{x} - x\right)^{2} + \left(m_{y} - y\right)^{2}}\\- \theta + \operatorname{atan_{2}}{\left(m_{y} - y,m_{x} - x \right)}\end{matrix}\right]
+
+H = dh/dx
+\left[\begin{matrix}\frac{- m_{x} + x}{\sqrt{\left(m_{x} - x\right)^{2} + \left(m_{y} - y\right)^{2}}} & \frac{- m_{y} + y}{\sqrt{\left(m_{x} - x\right)^{2} + \left(m_{y} - y\right)^{2}}} & 0\\\frac{m_{y} - y}{\left(m_{x} - x\right)^{2} + \left(m_{y} - y\right)^{2}} & \frac{- m_{x} + x}{\left(m_{x} - x\right)^{2} + \left(m_{y} - y\right)^{2}} & -1\end{matrix}\right]
+
+Linearization:  h(x, m) ~ h(mu, m) + H (x - mu)
